@@ -69,7 +69,7 @@ void main() {
     });
 
     testWidgets('renders replay button when timer is finished', (tester) async {
-      when(() => timerBloc.state).thenReturn(const TimerRunComplete());
+      when(() => timerBloc.state).thenReturn(TimerRunComplete());
       await tester.pumpTimerView(timerBloc);
       expect(find.text('00:00'), findsOneWidget);
       expect(find.byIcon(Icons.replay), findsOneWidget);
@@ -128,7 +128,7 @@ void main() {
     testWidgets(
         'timer resets when reset button is pressed '
         'when timer is finished', (tester) async {
-      when(() => timerBloc.state).thenReturn(const TimerRunComplete());
+      when(() => timerBloc.state).thenReturn(TimerRunComplete());
       await tester.pumpTimerView(timerBloc);
       await tester.tap(find.byIcon(Icons.replay));
       verify(() => timerBloc.add(const TimerReset())).called(1);

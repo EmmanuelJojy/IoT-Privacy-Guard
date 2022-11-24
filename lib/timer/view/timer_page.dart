@@ -3,8 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer/ticker.dart';
 import 'package:flutter_timer/timer/timer.dart';
 
-class TimerPage extends StatelessWidget {
+class TimerPage extends StatefulWidget {
   const TimerPage({super.key});
+
+  void refreshPage() {
+    createState();
+  }
+
+  @override
+  State<TimerPage> createState() => _TimerPageState();
+}
+
+class _TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +31,7 @@ class TimerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Timer')),
+      appBar: AppBar(title: const Text('Timer')),
       body: Stack(
         children: [
           const Background(),
@@ -59,9 +69,21 @@ class TimerText extends StatelessWidget {
 
 class Actions extends StatelessWidget {
   const Actions({super.key});
+  static BuildContext manContext = Null as BuildContext;
+
+  static void manualStartTimer() {
+    manContext
+        .read<TimerBloc>()
+        .add(TimerStarted(duration: TimerBloc.duration));
+  }
+
+  static void manualResetTimer() {
+    manContext.read<TimerBloc>().add(const TimerReset());
+  }
 
   @override
   Widget build(BuildContext context) {
+    manContext = context;
     return BlocBuilder<TimerBloc, TimerState>(
       buildWhen: (prev, state) => prev.runtimeType != state.runtimeType,
       builder: (context, state) {
@@ -103,8 +125,9 @@ class Actions extends StatelessWidget {
             if (state is TimerRunComplete) ...[
               FloatingActionButton(
                 child: const Icon(Icons.replay),
-                onPressed: () =>
-                    context.read<TimerBloc>().add(const TimerReset()),
+                onPressed: () {
+                  context.read<TimerBloc>().add(const TimerReset());
+                },
               ),
             ]
           ],

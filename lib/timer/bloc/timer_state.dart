@@ -30,5 +30,13 @@ class TimerRunInProgress extends TimerState {
 }
 
 class TimerRunComplete extends TimerState {
-  const TimerRunComplete() : super(0);
+  TimerRunComplete() : super(0) {
+    lockSystem();
+  }
+
+  void lockSystem() async {
+    print('Initiaitng Lock Screen Procedure');
+    var shell = Shell();
+    await shell.run('xdg-screensaver lock');
+  }
 }
