@@ -34,9 +34,9 @@ class TimerRunComplete extends TimerState {
     lockSystem();
   }
 
-  void lockSystem() async {
-    print('Initiaitng Lock Screen Procedure');
-    var shell = Shell();
-    await shell.run('xdg-screensaver lock');
+  Future<int> lockSystem() async {
+    debugPrint('Initiaitng Lock Screen Procedure');
+    await Shell().run('xdg-screensaver lock');
+    return 1;
   }
 }

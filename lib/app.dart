@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer/timer/timer.dart';
-
-import 'package:libserialport/libserialport.dart';
-
 import 'package:flutter_timer/timer/view/timer_page.dart' as manual;
+import 'package:libserialport/libserialport.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -17,32 +14,32 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     final availablePort = SerialPort.availablePorts;
-    print('Available port: $availablePort');
+    debugPrint('Available port: $availablePort');
 
-    final port1 = SerialPort('/dev/ttyUSB0');
-    port1.openRead();
-
-    try {
-      // Read Message
-      final reader = SerialPortReader(port1, timeout: 5000);
-      final upcomingData = reader.stream.map((data) {
-        return String.fromCharCodes(data);
-      })
-        ..listen((data) {
-          print('Read Data: $data');
+    if (availablePort.isNotEmpty) {
+      // final port1 = SerialPort('/dev/ttyUSB0')..openRead();
+      final port1 = SerialPort(availablePort[0])..openRead();
+      try {
+        // Read Message
+        final reader = SerialPortReader(port1, timeout: 5000);
+        reader.stream.map((data) {
+          return String.fromCharCodes(data);
+        }).listen((data) {
+          debugPrint('Read Data: $data');
           if (data.trim() == 'ST') {
-            print('Initiating Timer!');
+            debugPrint('Initiating Timer!');
             manual.Actions.manualStartTimer();
           }
           if (data.trim() == 'IN') {
-            print('Initiating Incrementer!');
+            debugPrint('Initiating Incrementer!');
             TimerBloc.duration = (TimerBloc.duration + 10) % 60;
             manual.Actions.manualResetTimer();
           }
         });
-    } on SerialPortError catch (err, _) {
-      print(SerialPort.lastError);
-      port1.close();
+      } on SerialPortError catch (err, _) {
+        debugPrint('$SerialPort.lastError');
+        port1.close();
+      }
     }
 
     return MaterialApp(

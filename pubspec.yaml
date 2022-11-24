@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc:
     path: packages/flutter_bloc
   flutter_libserialport: ^0.3.0
+  libserialport: ^0.3.0+1
   process_run: ^0.12.3+2
 
 dev_dependencies:

@@ -208,7 +208,7 @@ packages:
     source: hosted
     version: "0.6.5"
   libserialport:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: libserialport
       url: "https://pub.dartlang.org"
