@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/data/shared.dart';
+// import 'package:my_app/data/shared.dart';
 import 'package:my_app/logic/request.dart';
-import 'package:my_app/routes/home.dart';
+// import 'package:my_app/routes/home.dart';
 
 class ActionCard extends StatefulWidget {
   final String text;

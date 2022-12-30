@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_timer">
+    package="com.example.privacy_guard">
    <application
-        android:label="flutter_timer"
+        android:label="privacy_guard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

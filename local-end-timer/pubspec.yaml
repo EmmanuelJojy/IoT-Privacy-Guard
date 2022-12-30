@@ -1,0 +1,37 @@
+name: flutter_timer
+description: A new Flutter project.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  bloc:
+    path: packages/bloc
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+    path: packages/flutter_bloc
+  flutter_libserialport: ^0.3.0
+  libserialport: ^0.3.0+1
+  process_run: ^0.12.3+2
+
+dev_dependencies:
+  bloc_test: ^9.0.0
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.1.0
+
+dependency_overrides:
+  bloc:
+    path: packages/bloc
+  bloc_test:
+    path: packages/bloc_test
+  flutter_bloc:
+    path: packages/flutter_bloc
+
+flutter:
+  uses-material-design: true
